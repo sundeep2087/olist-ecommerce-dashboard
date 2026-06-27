@@ -4,6 +4,8 @@ An interactive Streamlit dashboard for exploring the [Brazilian E-Commerce Publi
 
 The dashboard is organized into thematic pages, each answering a distinct business question through maps, charts, and filterable tables. All visualizations respond to a shared global filter sidebar (date range, customer state, product category, order status, minimum order value).
 
+**Live app:** [https://olist-ecommerce-dashboard-d6jsxugfmgplt4znvjlxkb.streamlit.app/](https://olist-ecommerce-dashboard-d6jsxugfmgplt4znvjlxkb.streamlit.app/)
+
 ---
 
 ## Pages
@@ -260,6 +262,35 @@ All Plotly figures use `template="plotly_dark"` with `paper_bgcolor="#0e1117"`.
 - **Metric toggles:** use `st.segmented_control`, not `st.radio`.
 - **`use_container_width` is deprecated** in modern Streamlit — charts stretch to fill containers by default. Do not add it to new code.
 - **DuckDB connection:** a singleton per Streamlit worker, created in `db.get_con()`. All Parquet files in `data/parquet/` are auto-registered as views using their filename stem.
+
+---
+
+## Contributing
+
+Contributions are welcome! This project has three pages still to be built (see the Pages table above) and plenty of room for improvements to existing ones.
+
+**Ways to contribute:**
+
+- **Build a missing page** — Pages 7 (Customer Cohorts), 8 (Review Score Drivers), and 9 (Order Funnel) are fully specced in [`APP_SPEC.md`](APP_SPEC.md). Pick one and open a PR.
+- **Improve an existing page** — better chart types, additional metrics, UX polish, or performance optimisations are all fair game.
+- **Report a bug** — open a GitHub Issue describing what you saw, what you expected, and which page/filter combination triggered it.
+- **Suggest a feature** — open a GitHub Issue with the label `enhancement`.
+
+**Getting started:**
+
+1. Fork the repo and clone your fork.
+2. Follow the [Setup](#setup) steps to get the app running locally.
+3. Create a branch: `git checkout -b feature/your-feature-name`.
+4. Make your changes, test them locally with `pipenv run streamlit run app/Overview.py`.
+5. Open a pull request against `main` with a short description of what changed and why.
+
+**Code conventions to follow (from [`CLAUDE.md`](CLAUDE.md)):**
+
+- Every new page must include the `sys.path.insert` block before any project imports.
+- Use `st.segmented_control` (not `st.radio`) for metric toggles.
+- All Plotly figures must use `template="plotly_dark"` with `paper_bgcolor="#0e1117"`.
+- Do not add `use_container_width=True` — charts fill their container by default.
+- Follow the right-panel filter architecture already used by every existing page.
 
 ---
 
